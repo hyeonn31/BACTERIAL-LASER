@@ -3,131 +3,131 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-// Magazine Å¬·¡½º´Â ÅºÃ¢ ½Ã½ºÅÛÀ» ±¸ÇöÇÏ¸ç, IReloadable ÀÎÅÍÆäÀÌ½º¸¦ »ó¼Ó¹Ş½À´Ï´Ù.
+// Magazine í´ë˜ìŠ¤ëŠ” íƒ„ì°½ ì‹œìŠ¤í…œì„ êµ¬í˜„í•˜ë©°, IReloadable ì¸í„°í˜ì´ìŠ¤ë¥¼ ìƒì†ë°›ìŠµë‹ˆë‹¤.
 public class Magazine : MonoBehaviour, IReloadable
 {
-    // ÃÖ´ë Åº¾à ¼ö
+    // ìµœëŒ€ íƒ„ì•½ ìˆ˜
     public int maxBullets = 20;
 
-    // ÀçÀåÀü ½Ã°£ (ÃÊ ´ÜÀ§)
+    // ì¬ì¥ì „ ì‹œê°„ (ì´ˆ ë‹¨ìœ„)
     public float chargingTime = 2f;
 
-    // ÇöÀç Åº¾à ¼ö¸¦ ÀúÀåÇÏ´Â ³»ºÎ º¯¼ö
+    // í˜„ì¬ íƒ„ì•½ ìˆ˜ë¥¼ ì €ì¥í•˜ëŠ” ë‚´ë¶€ ë³€ìˆ˜
     private int currentBullets;
 
-    // ÇöÀç Åº¾à ¼ö¸¦ °ü¸®ÇÏ´Â ÇÁ·ÎÆÛÆ¼
+    // í˜„ì¬ íƒ„ì•½ ìˆ˜ë¥¼ ê´€ë¦¬í•˜ëŠ” í”„ë¡œí¼í‹°
     private int CurrentBullets
     {
-        get => currentBullets; // ÇöÀç Åº¾à ¼ö¸¦ ¹İÈ¯
+        get => currentBullets; // í˜„ì¬ íƒ„ì•½ ìˆ˜ë¥¼ ë°˜í™˜
         set
         {
-            // ÇöÀç Åº¾à ¼ö°¡ 0º¸´Ù ÀÛÀ¸¸é 0À¸·Î ¼³Á¤
+            // í˜„ì¬ íƒ„ì•½ ìˆ˜ê°€ 0ë³´ë‹¤ ì‘ìœ¼ë©´ 0ìœ¼ë¡œ ì„¤ì •
             if (value < 0)
                 currentBullets = 0;
-            // ÇöÀç Åº¾à ¼ö°¡ ÃÖ´ë Åº¾à ¼ö¸¦ ÃÊ°úÇÏ¸é ÃÖ´ëÄ¡·Î ¼³Á¤
+            // í˜„ì¬ íƒ„ì•½ ìˆ˜ê°€ ìµœëŒ€ íƒ„ì•½ ìˆ˜ë¥¼ ì´ˆê³¼í•˜ë©´ ìµœëŒ€ì¹˜ë¡œ ì„¤ì •
             else if (value > maxBullets)
                 currentBullets = maxBullets;
-            // À¯È¿ÇÑ ¹üÀ§ ³»¿¡¼­´Â ±×´ë·Î ¼³Á¤
+            // ìœ íš¨í•œ ë²”ìœ„ ë‚´ì—ì„œëŠ” ê·¸ëŒ€ë¡œ ì„¤ì •
             else
                 currentBullets = value;
 
-            // Åº¾à º¯°æ ÀÌº¥Æ®¸¦ È£Ãâ
+            // íƒ„ì•½ ë³€ê²½ ì´ë²¤íŠ¸ë¥¼ í˜¸ì¶œ
             OnBulletsChanged?.Invoke(currentBullets);
-            // ÃæÀü »óÅÂ º¯°æ ÀÌº¥Æ®¸¦ È£Ãâ (ºñÀ²·Î °è»ê)
+            // ì¶©ì „ ìƒíƒœ ë³€ê²½ ì´ë²¤íŠ¸ë¥¼ í˜¸ì¶œ (ë¹„ìœ¨ë¡œ ê³„ì‚°)
             OnChargeChanged?.Invoke((float)currentBullets / maxBullets);
         }
     }
 
-    // ÀçÀåÀü ½ÃÀÛ ÀÌº¥Æ®
+    // ì¬ì¥ì „ ì‹œì‘ ì´ë²¤íŠ¸
     public UnityEvent OnReloadStart;
-    // ÀçÀåÀü Á¾·á ÀÌº¥Æ®
+    // ì¬ì¥ì „ ì¢…ë£Œ ì´ë²¤íŠ¸
     public UnityEvent OnReloadEnd;
 
-    // Åº¾à ¼ö º¯°æ ÀÌº¥Æ® (intÇüÀ¸·Î Àü´Ş)
+    // íƒ„ì•½ ìˆ˜ ë³€ê²½ ì´ë²¤íŠ¸ (intí˜•ìœ¼ë¡œ ì „ë‹¬)
     public UnityEvent<int> OnBulletsChanged;
-    // ÃæÀü »óÅÂ º¯°æ ÀÌº¥Æ® (floatÇüÀ¸·Î ºñÀ² Àü´Ş)
+    // ì¶©ì „ ìƒíƒœ ë³€ê²½ ì´ë²¤íŠ¸ (floatí˜•ìœ¼ë¡œ ë¹„ìœ¨ ì „ë‹¬)
     public UnityEvent<float> OnChargeChanged;
 
-    // ½ÃÀÛ ½Ã Åº¾àÀ» ÃÖ´ëÄ¡·Î ¼³Á¤
+    // ì‹œì‘ ì‹œ íƒ„ì•½ì„ ìµœëŒ€ì¹˜ë¡œ ì„¤ì •
     private void Start()
     {
-        CurrentBullets = maxBullets; // ÇöÀç Åº¾àÀ» ÃÖ´ë Åº¾àÀ¸·Î ÃÊ±âÈ­
+        CurrentBullets = maxBullets; // í˜„ì¬ íƒ„ì•½ì„ ìµœëŒ€ íƒ„ì•½ìœ¼ë¡œ ì´ˆê¸°í™”
     }
 
-    // Åº¾àÀ» »ç¿ëÇÒ ¶§ È£ÃâµÇ´Â ¸Ş¼­µå
+    // íƒ„ì•½ì„ ì‚¬ìš©í•  ë•Œ í˜¸ì¶œë˜ëŠ” ë©”ì„œë“œ
     public bool Use(int amount = 1)
     {
-        // »ç¿ëÇÒ ¸¸Å­ÀÇ Åº¾àÀÌ ÀÖ´ÂÁö È®ÀÎ
+        // ì‚¬ìš©í•  ë§Œí¼ì˜ íƒ„ì•½ì´ ìˆëŠ”ì§€ í™•ì¸
         if (CurrentBullets >= amount)
         {
-            CurrentBullets -= amount; // Åº¾àÀ» Â÷°¨
-            return true; // »ç¿ë °¡´É
+            CurrentBullets -= amount; // íƒ„ì•½ì„ ì°¨ê°
+            return true; // ì‚¬ìš© ê°€ëŠ¥
         }
         else
         {
-            return false; // »ç¿ë ºÒ°¡´É
+            return false; // ì‚¬ìš© ë¶ˆê°€ëŠ¥
         }
     }
 
-    // ÀçÀåÀüÀ» ½ÃÀÛÇÏ´Â ¸Ş¼­µå
+    // ì¬ì¥ì „ì„ ì‹œì‘í•˜ëŠ” ë©”ì„œë“œ
     public void StartReload()
     {
-        // Åº¾àÀÌ ÀÌ¹Ì ÃÖ´ëÄ¡ÀÌ¸é ÀçÀåÀü Áß´Ü
+        // íƒ„ì•½ì´ ì´ë¯¸ ìµœëŒ€ì¹˜ì´ë©´ ì¬ì¥ì „ ì¤‘ë‹¨
         if (currentBullets == maxBullets)
             return;
 
-        // ±âÁ¸¿¡ ½ÇÇà ÁßÀÎ ¸ğµç ÄÚ·çÆ¾À» Áß´Ü
+        // ê¸°ì¡´ì— ì‹¤í–‰ ì¤‘ì¸ ëª¨ë“  ì½”ë£¨í‹´ì„ ì¤‘ë‹¨
         StopAllCoroutines();
-        // »õ·Î¿î ÀçÀåÀü ÄÚ·çÆ¾À» ½ÃÀÛ
+        // ìƒˆë¡œìš´ ì¬ì¥ì „ ì½”ë£¨í‹´ì„ ì‹œì‘
         StartCoroutine(ReloadProcess());
     }
 
-    // ÀçÀåÀüÀ» Áß´ÜÇÏ´Â ¸Ş¼­µå
+    // ì¬ì¥ì „ì„ ì¤‘ë‹¨í•˜ëŠ” ë©”ì„œë“œ
     public void StopReload()
     {
-        // ½ÇÇà ÁßÀÎ ¸ğµç ÄÚ·çÆ¾À» Áß´Ü
+        // ì‹¤í–‰ ì¤‘ì¸ ëª¨ë“  ì½”ë£¨í‹´ì„ ì¤‘ë‹¨
         //StopAllCoroutines();
     }
 
-    // ÀçÀåÀü °úÁ¤À» Ã³¸®ÇÏ´Â ÄÚ·çÆ¾
+    // ì¬ì¥ì „ ê³¼ì •ì„ ì²˜ë¦¬í•˜ëŠ” ì½”ë£¨í‹´
     private IEnumerator ReloadProcess()
     {
-        // ÀçÀåÀü ½ÃÀÛ ÀÌº¥Æ® È£Ãâ
+        // ì¬ì¥ì „ ì‹œì‘ ì´ë²¤íŠ¸ í˜¸ì¶œ
         OnReloadStart?.Invoke();
 
-        // ÀçÀåÀü ½ÃÀÛ ½Ã°£À» ±â·Ï
+        // ì¬ì¥ì „ ì‹œì‘ ì‹œê°„ì„ ê¸°ë¡
         var beginTime = Time.time;
 
-        // ÀçÀåÀü ½ÃÀÛ ½ÃÁ¡ÀÇ Åº¾à ¼ö
+        // ì¬ì¥ì „ ì‹œì‘ ì‹œì ì˜ íƒ„ì•½ ìˆ˜
         var beginBullets = currentBullets;
 
-        // ºÎÁ·ÇÑ Åº¾à ºñÀ² °è»ê
+        // ë¶€ì¡±í•œ íƒ„ì•½ ë¹„ìœ¨ ê³„ì‚°
         var enoughPercent = 1f - ((float)currentBullets / maxBullets);
 
-        // ºÎÁ·ÇÑ ºñÀ²¿¡ µû¸¥ ÇÊ¿äÇÑ ÀçÀåÀü ½Ã°£ °è»ê
+        // ë¶€ì¡±í•œ ë¹„ìœ¨ì— ë”°ë¥¸ í•„ìš”í•œ ì¬ì¥ì „ ì‹œê°„ ê³„ì‚°
         var enoughChargingTime = chargingTime * enoughPercent;
 
-        // ÀçÀåÀü ÁøÇà
+        // ì¬ì¥ì „ ì§„í–‰
         while (true)
         {
-            // ÇöÀç ÀçÀåÀü °æ°ú ½Ã°£À» ºñÀ²·Î °è»ê
+            // í˜„ì¬ ì¬ì¥ì „ ê²½ê³¼ ì‹œê°„ì„ ë¹„ìœ¨ë¡œ ê³„ì‚°
             var t = (Time.time - beginTime) / enoughChargingTime;
 
-            // ÀçÀåÀüÀÌ ¿Ï·áµÇ¾úÀ¸¸é ·çÇÁ Á¾·á
+            // ì¬ì¥ì „ì´ ì™„ë£Œë˜ì—ˆìœ¼ë©´ ë£¨í”„ ì¢…ë£Œ
             if (t >= 1f)
                 break;
 
-            // ÇöÀç Åº¾à ¼ö¸¦ ¼±Çü º¸°£ÇÏ¿© ¾÷µ¥ÀÌÆ®
+            // í˜„ì¬ íƒ„ì•½ ìˆ˜ë¥¼ ì„ í˜• ë³´ê°„í•˜ì—¬ ì—…ë°ì´íŠ¸
             CurrentBullets = (int)Mathf.Lerp(beginBullets, maxBullets, t);
 
-            // ´ÙÀ½ ÇÁ·¹ÀÓ±îÁö ´ë±â
+            // ë‹¤ìŒ í”„ë ˆì„ê¹Œì§€ ëŒ€ê¸°
             yield return null;
         }
 
-        // Åº¾àÀ» ÃÖ´ëÄ¡·Î ¼³Á¤
+        // íƒ„ì•½ì„ ìµœëŒ€ì¹˜ë¡œ ì„¤ì •
         CurrentBullets = maxBullets;
 
-        // ÀçÀåÀü Á¾·á ÀÌº¥Æ® È£Ãâ
+        // ì¬ì¥ì „ ì¢…ë£Œ ì´ë²¤íŠ¸ í˜¸ì¶œ
         OnReloadEnd?.Invoke();
     }
 }
