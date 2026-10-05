@@ -1,10 +1,25 @@
 # 🔫 BACTERIAL LASER
 
+[![YouTube](https://img.shields.io/badge/YouTube-플레이_영상-FF0000?style=flat-square&logo=youtube&logoColor=white)](https://www.youtube.com/watch?v=rqN3LNkh5fo)
+![Unity](https://img.shields.io/badge/Unity-2021.2-000000?style=flat-square&logo=unity&logoColor=white)
+![C#](https://img.shields.io/badge/C%23-239120?style=flat-square&logo=csharp&logoColor=white)
+![Meta Quest](https://img.shields.io/badge/Meta_Quest-VR-0467DF?style=flat-square&logo=meta&logoColor=white)
+
 **VR 코어 방어 서바이벌 슈팅 게임**입니다.
 사방에서 끝없이 몰려오는 몬스터로부터 중앙의 **코어(Core)**를 지키는 게임으로, 플레이어는 VR 컨트롤러로 총을 잡아 쏘고 폭탄을 던지며 최대한 오래 버팁니다.
 
 Unity **XR Interaction Toolkit**과 **Oculus(Meta Quest)** 환경에서 개발했습니다.
-https://www.youtube.com/watch?v=rqN3LNkh5fo
+
+## 🎬 플레이 영상
+
+<p align="center">
+  <a href="https://www.youtube.com/watch?v=rqN3LNkh5fo">
+    <img src="https://img.youtube.com/vi/rqN3LNkh5fo/hqdefault.jpg" width="720" alt="BACTERIAL LASER 플레이 영상">
+  </a>
+  <br>
+  <sub>▶ 이미지를 클릭하면 유튜브에서 플레이 영상을 볼 수 있습니다</sub>
+</p>
+
 ---
 
 ## 🎮 게임 플레이
