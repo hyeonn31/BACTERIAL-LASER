@@ -4,7 +4,7 @@
 사방에서 끝없이 몰려오는 몬스터로부터 중앙의 **코어(Core)**를 지키는 게임으로, 플레이어는 VR 컨트롤러로 총을 잡아 쏘고 폭탄을 던지며 최대한 오래 버팁니다.
 
 Unity **XR Interaction Toolkit**과 **Oculus(Meta Quest)** 환경에서 개발했습니다.
-
+https://www.youtube.com/watch?v=rqN3LNkh5fo
 ---
 
 ## 🎮 게임 플레이
