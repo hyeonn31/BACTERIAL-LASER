@@ -6,7 +6,7 @@
 ![Meta Quest](https://img.shields.io/badge/Meta_Quest-VR-0467DF?style=flat-square&logo=meta&logoColor=white)
 
 **VR 코어 방어 서바이벌 슈팅 게임**입니다.
-사방에서 끝없이 몰려오는 몬스터로부터 중앙의 **코어(Core)**를 지키는 게임으로, 플레이어는 VR 컨트롤러로 총을 잡아 쏘고 폭탄을 던지며 최대한 오래 버팁니다.
+사방에서 끝없이 몰려오는 몬스터로부터 중앙의 코어를 지키는 게임으로, 플레이어는 VR 컨트롤러로 총을 잡아 쏘고 폭탄을 던지며 최대한 오래 버팁니다.
 
 Unity **XR Interaction Toolkit**과 **Oculus(Meta Quest)** 환경에서 개발했습니다.
 
@@ -39,7 +39,7 @@ Unity **XR Interaction Toolkit**과 **Oculus(Meta Quest)** 환경에서 개발�
 
 ## 🛠️ 구현 포인트
 
-### 1. 이벤트 기반 설계 (`UnityEvent`)
+### 1. 이벤트 기반 설계
 `Core`, `Mob`, `MobManager`, `Shooter`, `Bomb` 등 핵심 컴포넌트가 상태 변화를 `UnityEvent`로 알립니다.
 사운드·이펙트·UI·햅틱은 이 이벤트를 **에디터에서 연결**만 하면 되므로 게임 로직과 연출이 느슨하게 분리됩니다.
 
